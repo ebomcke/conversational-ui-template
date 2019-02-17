@@ -2,16 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import message from './modules/messages'
+import user from './modules/users'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  modules: { message },
+  modules: { message, user },
   state: {},
   getters: {},
   mutations: {},
   actions: {
-    send ({ dispatch }, payload) {
+    send ({ dispatch, getters }, payload) {
+      payload.user = getters['user/getById']('app-user')
       dispatch('message/send', payload)
     }
   }
