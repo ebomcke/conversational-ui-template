@@ -1,9 +1,9 @@
 <template>
   <div id="user-input-container">
-    <div id="suggestions"></div>
+    <Suggestions :show="suggestionsShown" :onSelect="onSelect" />
     <div id="user-input">
       <md-field>
-        <md-textarea v-model="text" md-autogrow/>
+        <md-textarea v-model="text" md-autogrow @focus="showSuggestions()"/>
       </md-field>
       <md-button class="md-icon-button md-raised md-primary" @click="send">
         <md-icon>send</md-icon>
@@ -13,19 +13,33 @@
 </template>
 
 <script>
+import Suggestions from './Suggestions'
+
 export default {
+  components: {
+    Suggestions
+  },
   data: function () {
     return {
-      text: ''
+      text: '',
+      suggestionsShown: false
     }
   },
   methods: {
     send () {
+      this.suggestionsShown = false
       this.$store.dispatch('send', {
         data: {
           text: this.text
         }
       })
+      this.text = ''
+    },
+    showSuggestions () {
+      this.suggestionsShown = true
+    },
+    onSelect () {
+      this.suggestionsShown = false
       this.text = ''
     }
   }

@@ -1,7 +1,9 @@
 <template>
   <div :class="messageClasses">
     <div class="avatar">
-      <md-icon v-if="message.user.avatar">{{ message.user.avatar }}</md-icon>
+      <div class="icon-avatar" v-if="message.user.avatar">
+        <md-icon class="md-size-2x">{{ message.user.avatar }}</md-icon>
+      </div>
       <img v-if="message.user.picture" :src="image" />
     </div>
     <md-card>
@@ -36,7 +38,7 @@ export default {
 
 <style>
 .message {
-  margin: 1em;
+  margin: 2em 1em;
   display: flex;
 }
 
@@ -47,6 +49,19 @@ export default {
 .message .avatar {
   width: 4em;
   height: 4em;
+}
+
+.icon-avatar {
+  height: 100%;
+  width: 100%;
+  border-radius: 2em;
+  background-color: #efefef;
+  text-align: center;
+}
+
+.icon-avatar i {
+  position: relative;
+  top: 2px;
 }
 
 .message-user {
